@@ -1,18 +1,41 @@
 import java.util.Scanner;
-public class Equation{
-   public static void main(String[]args){
-      Scanner input = new Scanner(System.in);
-      
-     System.out.println("Enter first fraction in a / b form: ");
-        String x = input.nextLine();
-
-        System.out.println("Enter operation: ");
-        char z = input.next().charAt(0);
-
-        System.out.println("Enter second fraction in c / d form: ");
-        input.nextLine();
-        String y = input.nextLine();
+public class Equation
+{
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
+        int x,y;
 
 
-   }
+        System.out.print("Enter first variable: ");
+        x = input.nextInt();
+
+        System.out.print("Enter operation: ");
+        char z = input.next().charAt(0); //allowing characters to be used in the switch case statement by converting char to int
+
+        System.out.print("Enter second variable: ");
+        y = input.nextInt();
+
+     
+        int answer = 0;
+        switch (z)
+        {
+            case '+':
+                answer = x + y;
+                break; 
+            case '-':
+                answer = x - y;
+                break;
+            case '*':
+                answer = x * y; 
+                break;
+            case '/':
+                answer = x / y;
+                break;
+            default:
+                System.out.println("ERROR");
+                break;              
+        }
+        System.out.println("Answer = " + answer);       
+    }
 }
