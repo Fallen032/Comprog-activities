@@ -7,7 +7,7 @@ public class OnlineRetailSystem {
     static Scanner input = new Scanner(System.in);
     static ArrayList<Product> Lists = new ArrayList<Product>();
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         int choices = 0;
 
@@ -76,10 +76,9 @@ public class OnlineRetailSystem {
                     
                     int customerchoices;
                     do {
-                        System.out.print("ADMIN:\nWhat do you want to do?\nIf you want to add Product press[1]\nIf you want to remove Product press[2]\n " + 
-                        "If you want to manage Investory press[3]\nIf you want to display Product list press[4]\nIf you want to logout please press[5]\n Choice: ");
+                        System.out.print("Customer:\nIf you want to place order press[1]\nIf you want to view order history press[2]\n" + 
+                                        "If you want to logout please press[3]\nchoice: ");
                         customerchoices = input.nextInt();
-                        
                         switch(customerchoices) {
                             case 1:
                                 newCustomer.showList(Lists);
@@ -93,14 +92,10 @@ public class OnlineRetailSystem {
                     } while (customerchoices != 3);
                 break; 
             }
+              
         }
-
-        input.close();
-            }
-             
-                            
+    }   input.close();
             
-
     }
 }
 
@@ -121,7 +116,7 @@ class User {
     }
     
     public static void login() {
-        System.out.println("Welcome " + username);
+        System.out.println("\nWelcome " + username);
     }
     
     public static void logout() {
@@ -184,7 +179,7 @@ class Admin extends User {
            return;
         }
 		
-		System.out.println("========== PRODUCT LIST ==========\n");
+		System.out.println("-------- PRODUCT LIST ----------\n");
         for (int i = 0; i < Lists.size(); i++) {
             Product temp = Lists.get(i);
             System.out.println(i + ". Product Name: " + temp.getName() + 
@@ -192,7 +187,6 @@ class Admin extends User {
                                "\n   Product Quantity: " + temp.getStock() + 
                                "\n   Product Price: " + temp.getPrice() + "\n");
         }
-        System.out.println("==================================\n");
     }
     
     public static void manageInventory(ArrayList<Product> Lists, Scanner in) {
@@ -260,7 +254,7 @@ class Product {
         this.name = name;
     }
     
-    // Getter 
+    // GETTER 
     public String getName() {
     	return name;
     }
@@ -277,7 +271,7 @@ class Product {
     	return stockQuantity;
     }
     
-    // Setter
+    // SETTER
     public void setPrice(int newPrice) {
     	this.price = newPrice;
     }
@@ -288,12 +282,12 @@ class Product {
     
     // Product Methods
 
-    public void updatePrice(int newPrice, Scanner in) {
+    public void updatePrice(int newPrice, Scanner input) {
         setPrice(newPrice);
         System.out.println("Price has been updated");
     }
 
-    public void updateStock (int newStock, Scanner in) {
+    public void updateStock (int newStock, Scanner input) {
         setStock(newStock);
         System.out.println("Stock has been updated");
     }
@@ -318,7 +312,7 @@ class Customer extends User {
                return;
         }
 		
-		System.out.println("========== PRODUCT LIST ==========\n");
+		System.out.println("--------- PRODUCT LIST ----------\n");
         for (int i = 0; i < Lists.size(); i++) {
             Product temp = Lists.get(i);
             System.out.println(i + ". Product Name: " + temp.getName() + 
@@ -362,7 +356,7 @@ class Customer extends User {
             return;
         }
         
-        System.out.println("========== ORDER HISTORY ==========\n");
+        System.out.println("------- ORDER HISTORY -------\n");
         for (int i = 0; i < orderList.size(); i++) {
             Order order = orderList.get(i);
             System.out.println("Order ID: " + order.getOrderID());
