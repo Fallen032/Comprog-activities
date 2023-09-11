@@ -4,33 +4,41 @@ public class Equation
     public static void main(String[] args)
     {
         Scanner input = new Scanner(System.in);
-        int x,y;
+        int a,b,c,d,e,f;
 
 
-        System.out.print("Enter first variable: ");
-        x = input.nextInt();
+        System.out.print("Enter number: ");
+        a = input.nextInt();
+        System.out.print("Enter number: ");
+        b = input.nextInt();
+        System.out.print("Enter number: ");
+        c = input.nextInt();
 
         System.out.print("Enter operation: ");
         char z = input.next().charAt(0); //allowing characters to be used in the switch case statement by converting char to int
 
-        System.out.print("Enter second variable: ");
-        y = input.nextInt();
+        System.out.print("Enter a number: ");
+        d = input.nextInt();
+        System.out.print("Enter a number: ");
+        e = input.nextInt();
+        System.out.print("Enter a number: ");
+        f = input.nextInt();
 
      
         int answer = 0;
         switch (z)
         {
             case '+':
-                answer = x + y;
+                answer = a + b + c + d + e + f;
                 break; 
             case '-':
-                answer = x - y;
+                answer = a - b - c - d - e - f;
                 break;
             case '*':
-                answer = x * y; 
+                answer = a * b * c * d * e * f;
                 break;
             case '/':
-                answer = x / y;
+                answer = a / b / c / d / e / f;
                 break;
             default:
                 System.out.println("ERROR");
