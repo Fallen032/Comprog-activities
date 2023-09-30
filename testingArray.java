@@ -1,11 +1,11 @@
 import java.util.Scanner;
 
-public class MainArray{
+public class testingArray{
    int [] arr;
    int size , index , count;
    static Scanner input = new Scanner(System.in);
    
-   public MainArray(int array) {
+   public testingArray(int array) {
       size = array;
       arr = new int[size];
       index = -1;
@@ -20,13 +20,16 @@ public class MainArray{
       while(!isFull()){
          
          System.out.print("Enter value to add: ");
-          int value = input.nextInt();
-         
-         if(isFull()) {
-            System.out.println("Array is Full");
-         }
-            arr[++index] = value;
-            count++;
+          int value = 0;
+        if (input.hasNextInt()) {
+            value = input.nextInt();
+        }
+        int[] arr = new int[value];
+        for (int i = 0; i < count ; i++) {
+            if (input.hasNextInt()) {
+                count++;
+            }
+        }
       }
       if(isFull()) {
          
@@ -36,7 +39,7 @@ public class MainArray{
    
    public void view() {
       for(int i = 0; i < count; i++) {
-         System.out.println("Array value: " + arr[i]);
+         System.out.println("Array: " +  arr[i]);
       }
    }
    
@@ -167,7 +170,7 @@ public class MainArray{
 
         System.out.print("Enter Array Size: ");
         int initSize = input.nextInt();
-        MainArray array = new MainArray(initSize);;
+        testingArray array = new testingArray(initSize);
 
         while (true) {
 
