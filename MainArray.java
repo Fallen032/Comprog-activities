@@ -10,19 +10,26 @@ public class MainArray{
       arr = new int[size];
       index = -1;
       count = 0;
-      int value;
    }
    
-   boolean isFull() {return count >= size;}
-   boolean isEmpty() {return count == 0;}
+   boolean isFull() {
+      
+      return count >= size;
+   }
+   boolean isEmpty() {
+   
+      return count == 0;
+   }
    
    public void Add() {
       while(!isFull()){
-         
+      
+         // let user enter value for each index of the array
          System.out.print("Enter value to add: ");
           int value = input.nextInt();
          
          if(isFull()) {
+         
             System.out.println("Array is Full");
          }
             arr[++index] = value;
@@ -33,47 +40,54 @@ public class MainArray{
          System.out.println("Array is Full");
       }
    }
-   
+   //to view the value of the array that the user has entered
    public void view() {
+   
       for(int i = 0; i < count; i++) {
-         System.out.println("Array value: " + arr[i]);
+        System.out.println("Array: " +  arr[i]);
       }
    }
    
    public void count() {
+   
       System.out.println("Current size: " + count);
    }
    
    public void remove() {
       
       if(isEmpty()) {
+      
          System.out.println("Array is currently empty");
       } else {
+      
          System.out.print("Enter index to remove: ");
          int index = input.nextInt();
          
          if(index < 0 || index >= count) {
             System.out.println("Invalid index number");
          } else {
+         
             for(int i = index; i < count - 1; i++) {
                arr[i] = arr[i + 1];
             }
             count--;
-            System.out.println("index " + index + "was removed! ");
+            System.out.println("index " + index + " was removed! ");
          }
       }
    }
-   
+   // to search for the index in the array
    public void search () {
+   
       if(isEmpty()) {
       }else {
+      
          System.out.print("Enter index to search: ");
          int scanIndex = input.nextInt();
          
          boolean found = false;
          
          for(int i = 0 ; i < count ; i++) {
-            if(arr[i] == scanIndex) {
+            if(arr[i] == scanIndex) { // if the scanindex contains the value of the array it will display value of the index that the user has entered
                System.out.println("Value: " + scanIndex + "Index: " + i);
                found = true;
                break;
@@ -86,6 +100,7 @@ public class MainArray{
       }
    }
    public void sort() {
+   
       if(isEmpty()) {
         System.out.println("Array is currently empty");
       }else {
@@ -94,6 +109,7 @@ public class MainArray{
          int choices = input.nextInt();
          
          if(choices == 1) {
+         
             for(int i = 0 ; i < count - 1 ; i++){
                for(int j = 0; j < count - i - 1; j++){
                   if(arr[j] > arr[j + 1]) {
@@ -103,8 +119,9 @@ public class MainArray{
                   }
                }
             }
-            System.out.println("Array is sorted in Ascending order succesfully");
+            System.out.println("Array is sorted in Ascending order successfully");
          }else if(choices == 2) {
+         
             for(int i = 0 ; i < count - 1; i++){
                for(int j = 0; j < count - i - 1; j++) {
                   if(arr[j] < arr[j + 1]) {
@@ -114,7 +131,7 @@ public class MainArray{
                   }
                }
             }
-            System.out.println("Array is sorted in Descending order succsessfully");
+            System.out.println("Array is sorted in Descending order successfully");
          } else{
             System.out.println("Invalid input");
          }
@@ -123,15 +140,18 @@ public class MainArray{
     public void edit () {
 
         if (isEmpty()) {
+        
             System.out.println("Array is Empty!");
         } else {
-            System.out.println("Enter Index to Edit: ");
+            System.out.print("Enter Index to Edit: ");
             int editIndex = input.nextInt();
 
             if (editIndex < 0 || editIndex >= count) {
+            
                 System.out.println("Invalid Index!");
             } else {
-                System.out.println("Enter new Value for:  [" + editIndex + "]");
+            
+                System.out.print("Enter new Value for: [" + editIndex + "] ||| new value: ");
                 int newValue = input.nextInt();
                 
                 arr[editIndex] = newValue;
@@ -147,8 +167,10 @@ public class MainArray{
         int newSize = input.nextInt();
 
         if (newSize < count) {
+        
             System.out.println("Unable to Resize to a Smaller Size than the Current Number of Elements!");
         } else {
+        
             int [] newArray = new int[newSize];
             System.arraycopy(arr, 0, newArray, 0, count);
             arr = newArray;
@@ -176,8 +198,7 @@ public class MainArray{
             System.out.println("5 - Sort    6 - Edit");
             System.out.println("7 - Count   8 - Resize");
             System.out.println("9 - Exit");
-            System.out.print
-            ("choice: ");
+            System.out.print("choice: ");
 
             int choice = input.nextInt();
 
