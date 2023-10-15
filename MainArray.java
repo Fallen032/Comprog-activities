@@ -193,8 +193,8 @@ public class MainArray{
             try {
                 System.out.print("Enter Array Size: ");
                 initSize = input.nextInt();
-                validInput = true;
-            } catch (Exception e) {
+                validInput = true; //This line allows the program to move forward instead of inputting the array size again and again
+            } catch (Exception e) { // This line will detect erroneous input and request the user to enter the array size again rather than ending the program.
                 System.out.print("Error: Invalid input\nPlease enter a valid array size: ");
                 input.next(); // Consume the invalid input to prevent an infinite loop
             }
