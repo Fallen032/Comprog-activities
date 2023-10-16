@@ -22,7 +22,10 @@ public class MainArray{
    }
    
    public void Add() {
-      while(!isFull()){
+      while(true)
+      {
+         try{
+            while(!isFull()){
       
          // let user enter value for each index of the array
          System.out.print("Enter value to add: ");
@@ -38,9 +41,15 @@ public class MainArray{
       if(isFull()) {
          
          System.out.println("Array is Full");
+         break;
       }
-   }
-   //to view the value of the array that the user has entered
+       }catch (Exception e)  {
+          System.out.println("Error: Invalid input, Enter proper array value ");
+          input.next();          
+       }
+   }      
+}
+    //to view the value of the array that the user has entered
    public void view() {
    
       for(int i = 0; i < count; i++) {
@@ -54,8 +63,9 @@ public class MainArray{
    }
    
    public void remove() {
-      
-      if(isEmpty()) {
+   while(true) {
+      try{
+           if(isEmpty()) {
       
          System.out.println("Array is currently empty");
       } else {
@@ -72,33 +82,44 @@ public class MainArray{
             }
             count--;
             System.out.println("index " + index + " was removed! ");
-         }
-      }
-   }
-   // to search for the index in the array
-   public void search () {
-   
-      if(isEmpty()) {
-      }else {
-      
-         System.out.print("Enter index to search: ");
-         int scanIndex = input.nextInt();
-         
-         boolean found = false;
-         
-         for(int i = 0 ; i < count ; i++) {
-            if(arr[i] == scanIndex) { // if the scanindex contains the value of the array it will display value of the index that the user has entered
-               System.out.println("Value: " + scanIndex + " Index: " + i);
-               found = true;
-               break;
+            break;
+          }
+       }
+     }catch(Exception e) {
+         System.out.println("Invalid index! ");
+         input.next();
+     }
+   }      
+  }
+   public void search() {
+    while (true) {
+        try {
+            if (isEmpty()) {
+               // Handle case when the array is empty
+            } else {
+                System.out.print("Enter value to search: "); // Prompt for value instead of index
+                int scanValue = input.nextInt();
+
+                boolean found = false;
+
+                for (int i = 0; i < count; i++) {
+                    if (arr[i] == scanValue) { // Compare array element with user input value
+                        System.out.println("Value: " + scanValue + " found at Index: " + i);
+                        found = true;
+                        break; // Break the loop once the value is found
+                    }
+                }
+
+                if (!found) {
+                    System.out.println("Value: " + scanValue + " was not found");
+                }
             }
-         }
-         
-         if(!found) {
-            System.out.println("Value: " + scanIndex + "was not found");
-         }
-      }
-   }
+        } catch (Exception e) {
+            System.out.println("Invalid input! Please enter a valid index ");
+            input.next(); // Consume the invalid input to prevent an infinite loop
+        }
+    }
+ }   
    public void sort() {
    
       if(isEmpty()) {
@@ -138,8 +159,9 @@ public class MainArray{
       }
    }
     public void edit () {
-
-        if (isEmpty()) {
+    while(true){
+      try{ 
+         if (isEmpty()) {
         
             System.out.println("Array is Empty!");
         } else {
@@ -156,11 +178,15 @@ public class MainArray{
                 
                 arr[editIndex] = newValue;
                 System.out.println("Element at index " + editIndex + " was changed to " + newValue);
+                break;
             }
         }
-
-    }
-
+      }catch (Exception e) {
+         System.out.println("Invalid index to edit! ");
+         input.next();
+      }
+    }    
+   }
     public void arraySize () {
 
         System.out.print("Enter New Array Size: ");
@@ -186,22 +212,22 @@ public class MainArray{
     }
 
     public static void main (String [] args) {
-        boolean validInput = false;
+        boolean validInput = true;
         int initSize = 0;
-        
-        while (!validInput) {
+        while (validInput) {
             try {
                 System.out.print("Enter Array Size: ");
-                initSize = input.nextInt();
-                validInput = true; //This line allows the program to move forward instead of inputting the array size again and again
+                initSize = input.nextInt();       
+                validInput = false; // it allows the program to move forward if the user inputs a integer instead of a string
             } catch (Exception e) { // This line will detect erroneous input and request the user to enter the array size again rather than ending the program.
-                System.out.print("Error: Invalid input\nPlease enter a valid array size: ");
+                System.out.println("Error: Invalid input\nPlease enter a valid array size ");
                 input.next(); // Consume the invalid input to prevent an infinite loop
             }
         }
           MainArray array = new MainArray(initSize);
         
             while (true) {
+               try{
                 System.out.println("1 - Add     2 - View");
                 System.out.println("3 - Remove  4 - Search");
                 System.out.println("5 - Sort    6 - Edit");
@@ -240,9 +266,16 @@ public class MainArray{
                     array.exit();
                     break;
                 }
-            }
+              }catch (Exception e) {
+                  System.out.println("Invalid choice!");
+                  input.next();
+              }
+           }
         }
     }
+
+
+
 
 
 
