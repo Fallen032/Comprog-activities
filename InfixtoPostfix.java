@@ -1,96 +1,64 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Stack;
 import java.util.Scanner;
 
-class InfixtoPostfix {
+class Main {
 
-	// A utility function to return
-	// precedence of a given operator
-	// Higher returned value means
-	// higher precedence
-	static int Prec(char ch)
-	{
-		switch (ch) {
-		case '+':
-		case '-':
-			return 1;
+    static int getPrecedence(char ch) {
+        switch (ch) {
+            case '+':
+            case '-':
+                return 1;
+            case '*':
+            case '/':
+                return 2;
+            case '^':
+                return 3;
+        }
+        return -1;
+    }
 
-		case '*':
-		case '/':
-			return 2;
+    static boolean isOperator(char ch) {
+        return (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^');
+    }
 
-		case '^':
-			return 3;
-		}
-		return -1;
-	}
+    static String infixToPostfix(String exp) {
+        String result = "";
+        Deque<Character> stack = new ArrayDeque<>();
 
-	// The main method that converts
-	// given infix expression
-	// to postfix expression.
-	static String infixToPostfix(String exp)
-	{
-		// Initializing empty String for result
-		String result = new String("");
+        for (int i = 0; i < exp.length(); ++i) {
+            char c = exp.charAt(i);
 
-		// Initializing empty stack
-		Deque<Character> stack = new ArrayDeque<Character>();
+            if (Character.isLetterOrDigit(c)) {
+                result += c;
+            } else if (c == '(') {
+                stack.push(c);
+            } else if (c == ')') {
+                while (!stack.isEmpty() && stack.peek() != '(') {
+                    result += stack.pop();
+                }
+                stack.pop(); // Remove the '('
+            } else {
+                while (!stack.isEmpty() && getPrecedence(c) <= getPrecedence(stack.peek())) {
+                    result += stack.pop();
+                }
+                stack.push(c);
+            }
+        }
 
-		for (int i = 0; i < exp.length(); ++i) {
-			char c = exp.charAt(i);
+        while (!stack.isEmpty()) {
+            if (stack.peek() == '(') {
+                return "Invalid Expression";
+            }
+            result += stack.pop();
+        }
 
-			// If the scanned character is an
-			// operand, add it to output.
-			if (Character.isLetterOrDigit(c))
-				result += c;
+        return result;
+    }
 
-			// If the scanned character is an '(',
-			// push it to the stack.
-			else if (c == '(')
-				stack.push(c);
-
-			// If the scanned character is an ')',
-			// pop and output from the stack
-			// until an '(' is encountered.
-			else if (c == ')') {
-				while (!stack.isEmpty()
-					&& stack.peek() != '(') {
-					result += stack.peek();
-					stack.pop();
-				}
-
-				stack.pop();
-			}
-		
-			// An operator is encountered
-			else
-			{
-				while (!stack.isEmpty()
-					&& Prec(c) <= Prec(stack.peek())) {
-
-					result += stack.peek();
-					stack.pop();
-				}
-				stack.push(c);
-			}
-		}
-
-		// Pop all the operators from the stack
-		while (!stack.isEmpty()) {
-			if (stack.peek() == '(')
-				return "Invalid Expression";
-			result += stack.peek();
-			stack.pop();
-		}
-	
-		return result;
-	}
-
-	// Driver code 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter an infix expression:");
+        System.out.print("Enter an infix expression: ");
         String exp = input.nextLine();
 
         // Function call
