@@ -14,58 +14,91 @@ public class BinaryTree {
         }
     }
 
-    public BinaryTree() {
-        // Constructor can be left empty for user input
+    public void insert(int value) {
+        root = insert(root, value);
     }
 
-    // Method to insert a new node into the binary tree
-    private TreeNode insert(TreeNode root, int data) {
+    public TreeNode insert(TreeNode root, int value) {
         if (root == null) {
-            return new TreeNode(data);
+            root = new TreeNode(value);
+            return root;
         }
-
-        if (data < root.data) {
-            root.left = insert(root.left, data);
-        } else if (data > root.data) {
-            root.right = insert(root.right, data);
+        if (value < root.data) {
+            root.left = insert(root.left, value);
+        } else {
+            root.right = insert(root.right, value);
         }
-
         return root;
     }
 
-    // Method to take user input for building the binary tree
-    public void buildTree() {
-        Scanner scanner = new Scanner(System.in);
+    public void inOrder() {
+        inOrder(root);
+    }
 
-        System.out.println("Enter the number of nodes in the binary tree:");
-        int numNodes = scanner.nextInt();
-
-        System.out.println("Enter the values of the nodes, one by one:");
-        for (int i = 0; i < numNodes; i++) {
-            int data = scanner.nextInt();
-            root = insert(root, data);
+    public void inOrder(TreeNode root) {
+        if (root == null) {
+            return;
         }
+        inOrder(root.left);
+        System.out.print(root.data + " ");
+        inOrder(root.right);
     }
 
-    // Method to display the binary tree using inorder traversal
-    private void display(TreeNode root) {
-        if (root != null) {
-            display(root.left);
-            System.out.print(root.data + " ");
-            display(root.right);
+    public void preOrder() {
+        preOrder(root);
+    }
+
+    public void preOrder(TreeNode root) {
+        if (root == null) {
+            return;
         }
+        System.out.print(root.data + " ");
+        preOrder(root.left);
+        preOrder(root.right);
     }
 
-    public void displayTree() {
-        System.out.print("Binary Tree (Inorder Traversal): ");
-        display(root);
-        System.out.println();
+    public void postOrder() {
+        postOrder(root);
     }
+
+    public void postOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        postOrder(root.left);
+        postOrder(root.right);
+        System.out.print(root.data + " ");
+    }
+    
 
     public static void main(String[] args) {
-        BinaryTree binaryTree = new BinaryTree();
-        binaryTree.buildTree();
-        binaryTree.displayTree();
+        Scanner input = new Scanner(System.in);
+        BinaryTree display = new BinaryTree();
+
+        System.out.print("Enter the size of the tree: ");
+        int size = input.nextInt();
+
+        for (int i = 0; i < size; i++) {
+            System.out.print("Enter the value for each node: ");
+            int node = input.nextInt();
+            display.insert(node);
+        }
+
+        System.out.print("\n[1]Display inorder,preorder,postorder\n[2]Search\n[3]Delete\n[4]Exit\nChoice: ");
+        int choices = input.nextInt();
+        
+        switch(choices){
+         case 1:
+         System.out.print("inorder: ");
+         display.inOrder();
+         System.out.print("\npreorder: ");
+         display.preOrder();
+         System.out.print("\npostorder: ");
+         display.postOrder();
+         break;
+         case 2:
+        }
     }
 }
+
    
