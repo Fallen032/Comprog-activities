@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BinaryTree {
@@ -14,20 +15,22 @@ public class BinaryTree {
         }
     }
 
-    public void insert(int value) {
-        root = insert(root, value);
+    public void insert(int key) {
+        root = insertRec(root, key);
     }
 
-    public TreeNode insert(TreeNode root, int value) {
+    private TreeNode insertRec(TreeNode root, int key) {
         if (root == null) {
-            root = new TreeNode(value);
+            root = new TreeNode(key);
             return root;
         }
-        if (value < root.data) {
-            root.left = insert(root.left, value);
-        } else {
-            root.right = insert(root.right, value);
+
+        if (key < root.data) {
+            root.left = insertRec(root.left, key);
+        } else if (key > root.data) {
+            root.right = insertRec(root.right, key);
         }
+
         return root;
     }
 
@@ -69,36 +72,140 @@ public class BinaryTree {
         postOrder(root.right);
         System.out.print(root.data + " ");
     }
-    
+
+    public boolean search(int key) {
+        return search(root, key);
+    }
+
+    private boolean search(TreeNode root, int key) {
+        if (root == null || root.data == key) {
+            return root != null;
+        }
+
+        if (key < root.data) {
+            return search(root.left, key);
+        } else {
+            return search(root.right, key);
+        }
+    }
+
+    private TreeNode delete(TreeNode root, int key) {
+        if (root == null) {
+            return root;
+        }
+
+        if (key < root.data) {
+            root.left = delete(root.left, key);
+        } else if (key > root.data) {
+            root.right = delete(root.right, key);
+        } else {
+
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            }
+
+            root.data = minValue(root.right);
+
+            root.right = delete(root.right, root.data);
+        }
+
+        return root;
+    }
+
+    private int minValue(TreeNode root) {
+        int minValue = root.data;
+        while (root.left != null) {
+            minValue = root.left.data;
+            root = root.left;
+        }
+        return minValue;
+    }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         BinaryTree display = new BinaryTree();
 
-        System.out.print("Enter the size of the tree: ");
-        int size = input.nextInt();
+        boolean rootInserted = false;
 
-        for (int i = 0; i < size; i++) {
-            System.out.print("Enter the value for each node: ");
-            int node = input.nextInt();
-            display.insert(node);
+        while (!rootInserted) {
+            try {
+                System.out.print("Enter the value for the root node: ");
+                int rootValue = input.nextInt();
+                display.insert(rootValue);
+                rootInserted = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Please enter a valid integer.");
+                input.nextLine(); 
+            }
         }
 
-        System.out.print("\n[1]Display inorder,preorder,postorder\n[2]Search\n[3]Delete\n[4]Exit\nChoice: ");
-        int choices = input.nextInt();
-        
-        switch(choices){
-         case 1:
-         System.out.print("inorder: ");
-         display.inOrder();
-         System.out.print("\npreorder: ");
-         display.preOrder();
-         System.out.print("\npostorder: ");
-         display.postOrder();
-         break;
-         case 2:
+        while (true) {
+            System.out.print("[1]Insert another value\n[2]Display inorder, preorder, postorder\n[3]Search\n[4]Delete\n[5]Exit\nChoice: ");
+            int choice;
+
+            try {
+                choice = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Please enter a valid integer.");
+                input.nextLine(); 
+                continue;
+            }
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter another value: ");
+                    try {
+                        display.insert(input.nextInt());
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input! Please enter a valid integer.");
+                        input.nextLine();
+                    }
+                    break;
+                case 2:
+                    System.out.print("Inorder: ");
+                    display.inOrder();
+                    System.out.print("\nPreorder: ");
+                    display.preOrder();
+                    System.out.print("\nPostorder: ");
+                    display.postOrder();
+                    System.out.println();
+                    break;
+                case 3:
+                    System.out.print("Enter a number to search: ");
+                    try {
+                        int searchValue = input.nextInt();
+                        if (display.search(searchValue)) {
+                            System.out.println("Value found: " + searchValue);
+                        } else {
+                            System.out.println("Value is not found!");
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input! Please enter a valid integer.");
+                        input.nextLine();
+                    }
+                    break;
+                case 4:
+                    System.out.print("Enter a value to delete: ");
+                    try {
+                        int deleteValue = input.nextInt();
+                        display.root = display.delete(display.root, deleteValue);
+                        System.out.println(deleteValue + " is deleted from the tree.");
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input! Please enter a valid integer.");
+                        input.nextLine(); 
+                    }
+                    break;
+                case 5:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
         }
     }
 }
+
 
    
