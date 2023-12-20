@@ -142,13 +142,13 @@ public class BinaryTree {
         }
 
         while (true) {
-            System.out.print("[1]Insert another value\n[2]Display inorder, preorder, postorder\n[3]Search\n[4]Delete\n[5]Exit\nChoice: ");
+            System.out.print("===TASK BAR====\n[1]Insert another value\n[2]Display inorder, preorder, postorder\n[3]Search\n[4]Delete\n[5]Exit\nChoice: ");
             int choice;
 
             try {
                 choice = input.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input! Please enter a valid integer.");
+                System.out.println("Invalid input! Please enter a proper value.");
                 input.nextLine(); 
                 continue;
             }
@@ -159,7 +159,7 @@ public class BinaryTree {
                     try {
                         display.insert(input.nextInt());
                     } catch (InputMismatchException e) {
-                        System.out.println("Invalid input! Please enter a valid integer.");
+                        System.out.println("Invalid input! Please enter a proper value.");
                         input.nextLine();
                     }
                     break;
@@ -182,7 +182,7 @@ public class BinaryTree {
                             System.out.println("Value is not found!");
                         }
                     } catch (InputMismatchException e) {
-                        System.out.println("Invalid input! Please enter a valid integer.");
+                        System.out.println("Invalid input! Please enter a proper value.");
                         input.nextLine();
                     }
                     break;
@@ -193,7 +193,7 @@ public class BinaryTree {
                         display.root = display.delete(display.root, deleteValue);
                         System.out.println(deleteValue + " is deleted from the tree.");
                     } catch (InputMismatchException e) {
-                        System.out.println("Invalid input! Please enter a valid integer.");
+                        System.out.println("Invalid input! Please enter a proper value");
                         input.nextLine(); 
                     }
                     break;
@@ -207,5 +207,3 @@ public class BinaryTree {
     }
 }
 
-
-   
